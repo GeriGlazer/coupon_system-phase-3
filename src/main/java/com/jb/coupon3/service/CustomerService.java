@@ -1,14 +1,13 @@
 package com.jb.coupon3.service;
 
 import com.jb.coupon3.beans.Category;
-import com.jb.coupon3.beans.Company;
 import com.jb.coupon3.beans.Coupon;
 import com.jb.coupon3.beans.Customer;
 import com.jb.coupon3.exceptions.CustomExceptions;
 import com.jb.coupon3.exceptions.OptionalExceptionMessages;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 
@@ -28,17 +27,14 @@ public class CustomerService extends ClientService{
             throw new CustomExceptions(OptionalExceptionMessages.WRONG_EMAIL_OR_PASSWORD);
         }
     }
+
     public void updateCustomer(Customer customer) throws CustomExceptions {
-        if(!customerRepo.existsById(customer.getId())) {
+        if (!customerRepo.existsById(customer.getId())) {
             throw new CustomExceptions(OptionalExceptionMessages.CUSTOMER_NOT_FOUND);
         }
         customerRepo.save(customer);
         System.out.println("Customer updated successfully");
     }
-
-
-
-
 
     public void purchaseCoupon(int couponId) throws CustomExceptions {
         if (!couponRepo.existsById(couponId)){
@@ -77,10 +73,10 @@ public class CustomerService extends ClientService{
     }
 
     public Customer getCustomerDetails() throws CustomExceptions {
-        Customer customer = customerRepo.findById(customerId).get();
-        if (customer == null){
+        Optional<Customer> optionalCustomer = customerRepo.findById(customerId);
+        if (optionalCustomer == null){
             throw new CustomExceptions(OptionalExceptionMessages.CUSTOMER_NOT_FOUND);
         }
-        return customer;
+        return optionalCustomer.get();
     }
 }

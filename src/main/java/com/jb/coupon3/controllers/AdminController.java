@@ -40,7 +40,7 @@ public class AdminController {
         String newToken = jwTutil.checkUser(token, ClientType.ADMIN);
         adminService.updateCompany(company);
         return ResponseEntity.ok()
-        .header("Authorization", token)
+        .header("Authorization", newToken)
                 .body("company " + company.getName() + " updated");
     }
 
@@ -59,7 +59,7 @@ public class AdminController {
         String newToken = jwTutil.checkUser(token, ClientType.ADMIN);
         adminService.deleteCompany(companyId);
         return ResponseEntity.ok()
-                .header("Authorization", token)
+                .header("Authorization", newToken)
                 .body("company deleted");
     }
 
@@ -109,7 +109,7 @@ public class AdminController {
         String newToken = jwTutil.checkUser(token, ClientType.ADMIN);
         adminService.updateCustomer(customer);
         return ResponseEntity.ok()
-                .header("Authorization", token)
+                .header("Authorization", newToken)
                 .body("customer " + customer.getFirstName() + " " + customer.getLastName() + " updated");
     }
 
@@ -159,7 +159,7 @@ public class AdminController {
         String newToken = jwTutil.checkUser(token, ClientType.ADMIN);
         adminService.deleteCustomer(id);
         return ResponseEntity.ok()
-                .header("Authorization", token)
+                .header("Authorization", newToken)
                 .body("customer deleted");
     }
 }

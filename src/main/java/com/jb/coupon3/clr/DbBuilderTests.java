@@ -105,7 +105,7 @@ public class DbBuilderTests implements CommandLineRunner {
                 .price(150)
                 .startDate(Date.valueOf(LocalDate.now()))
                 .endDate(Date.valueOf(LocalDate.now().plusDays(30L)))
-                .title("Home theater Evolition Kit")
+                .title("Home theater Evolution Kit")
                 .build();
         Coupon coup6 = Coupon.builder()
                 .amount(500)

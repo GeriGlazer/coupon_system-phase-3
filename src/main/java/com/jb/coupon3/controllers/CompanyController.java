@@ -26,24 +26,7 @@ import org.springframework.web.bind.annotation.*;
  */
 public class CompanyController {
     private final CompanyService companyService;
-    private final AdminService adminService;
     private final JWTutil jwTutil;
-
-    //add java docs
-    @PutMapping("/updateCompany")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<?> updateCompany (@RequestBody Company company, @RequestHeader(name = "Authorization") String token) throws CustomExceptions {
-        String newToken = jwTutil.checkUser(token, ClientType.COMPANY);
-        companyService.updateCompany(company);
-        return ResponseEntity.ok()
-                .header("Authorization", token)
-                .body("company " + company.getName() + " updated");
-    }
-
-
-
-
-
 
     /**
      * this method is for updating a company information
@@ -56,9 +39,9 @@ public class CompanyController {
     @PutMapping("/updateCompany")
     public ResponseEntity<?> updateCompany (@RequestBody Company company, @RequestHeader(name = "Authorization") String token) throws CustomExceptions {
         String newToken = jwTutil.checkUser(token, ClientType.COMPANY);
-        adminService.updateCompany(company);
+        companyService.updateCompany(company);
         return ResponseEntity.ok()
-                .header("Authorization", token)
+                .header("Authorization", newToken)
                 .body("company " + company.getName() + " updated");
     }
 
@@ -77,7 +60,7 @@ public class CompanyController {
         String newToken = jwTutil.checkUser(token, ClientType.COMPANY);
         companyService.addCoupon(coupon);
         return ResponseEntity.ok()
-                .header("Authorization", token)
+                .header("Authorization", newToken)
                 .body("coupon " + coupon.getTitle() + " added");
     }
 
@@ -97,7 +80,7 @@ public class CompanyController {
         String newToken = jwTutil.checkUser(token, ClientType.COMPANY);
         companyService.updateCoupon(coupon);
         return ResponseEntity.ok()
-                .header("Authorization", token)
+                .header("Authorization", newToken)
                 .body("coupon " + coupon.getTitle() + " updated");
     }
 
@@ -114,7 +97,7 @@ public class CompanyController {
         String newToken = jwTutil.checkUser(token, ClientType.COMPANY);
         companyService.deleteCoupon(couponId);
         return ResponseEntity.ok()
-                .header("Authorization", token)
+                .header("Authorization", newToken)
                 .body("coupon deleted");
     }
 
