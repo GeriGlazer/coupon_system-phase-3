@@ -9,6 +9,7 @@ import com.jb.coupon3.exceptions.OptionalExceptionMessages;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 
@@ -28,16 +29,6 @@ public class CustomerService extends ClientService{
             throw new CustomExceptions(OptionalExceptionMessages.WRONG_EMAIL_OR_PASSWORD);
         }
     }
-    public void updateCustomer(Customer customer) throws CustomExceptions {
-        if(!customerRepo.existsById(customer.getId())) {
-            throw new CustomExceptions(OptionalExceptionMessages.CUSTOMER_NOT_FOUND);
-        }
-        customerRepo.save(customer);
-        System.out.println("Customer updated successfully");
-    }
-
-
-
 
 
     public void purchaseCoupon(int couponId) throws CustomExceptions {
@@ -77,10 +68,19 @@ public class CustomerService extends ClientService{
     }
 
     public Customer getCustomerDetails() throws CustomExceptions {
-        Customer customer = customerRepo.findById(customerId).get();
-        if (customer == null){
+        Optional<Customer> optionalCustomer = customerRepo.findById(customerId);
+        if (optionalCustomer.isEmpty()){
             throw new CustomExceptions(OptionalExceptionMessages.CUSTOMER_NOT_FOUND);
         }
-        return customer;
+        return optionalCustomer.get();
+    }
+    public void updateCustomer(Customer customer) throws CustomExceptions {
+        if (!customerRepo.existsById(customer.getId())) {
+            throw new CustomExceptions(OptionalExceptionMessages.CUSTOMER_NOT_FOUND);
+        }
+        if (!Objects.equals(customer.getFirstName(), customerRepo.findById(customer.getId()).get().getFirstName())) {
+            throw new CustomExceptions(OptionalExceptionMessages.CANT_UPDATE_COMPANY_NAME);
+        }
+        customerRepo.save(customer);
     }
 }

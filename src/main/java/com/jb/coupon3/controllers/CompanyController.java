@@ -29,22 +29,6 @@ public class CompanyController {
     private final AdminService adminService;
     private final JWTutil jwTutil;
 
-    //add java docs
-    @PutMapping("/updateCompany")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<?> updateCompany (@RequestBody Company company, @RequestHeader(name = "Authorization") String token) throws CustomExceptions {
-        String newToken = jwTutil.checkUser(token, ClientType.COMPANY);
-        companyService.updateCompany(company);
-        return ResponseEntity.ok()
-                .header("Authorization", token)
-                .body("company " + company.getName() + " updated");
-    }
-
-
-
-
-
-
     /**
      * this method is for updating a company information
      * @param company to identify the company to update
@@ -72,13 +56,13 @@ public class CompanyController {
      * this can happen if the requesting company did not enter the system through the login process
      * 2: if already exist a similar coupon in the company's database
      */
-    @PutMapping("/addCoupon")
+    @PostMapping("/addCoupon")
     public ResponseEntity<?> addCoupon(@RequestBody Coupon coupon,@RequestHeader(name = "Authorization") String token) throws CustomExceptions {
         String newToken = jwTutil.checkUser(token, ClientType.COMPANY);
         companyService.addCoupon(coupon);
         return ResponseEntity.ok()
                 .header("Authorization", token)
-                .body("coupon " + coupon.getTitle() + " added");
+                .body(coupon);
     }
 
 

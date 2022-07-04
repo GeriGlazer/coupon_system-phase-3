@@ -3,7 +3,6 @@ package com.jb.coupon3.service;
 import com.jb.coupon3.beans.Category;
 import com.jb.coupon3.beans.Company;
 import com.jb.coupon3.beans.Coupon;
-import com.jb.coupon3.beans.Customer;
 import com.jb.coupon3.exceptions.CustomExceptions;
 import com.jb.coupon3.exceptions.OptionalExceptionMessages;
 import org.springframework.stereotype.Service;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -32,19 +32,6 @@ public class CompanyService extends ClientService{
             throw new CustomExceptions(OptionalExceptionMessages.WRONG_EMAIL_OR_PASSWORD);
         }
     }
-    public void updateCompany(Company company) throws CustomExceptions {
-        if(!companyRepo.existsById(company.getId())) {
-            throw new CustomExceptions(OptionalExceptionMessages.COMPANY_NOT_FOUND);
-        }
-        if (!Objects.equals(company.getName(), companyRepo.findById(company.getId()).get().getName())) {
-            throw new CustomExceptions(OptionalExceptionMessages.CANT_UPDATE_COMPANY_NAME);
-        }
-        companyRepo.save(company);
-        System.out.println("Company updated successfully");
-    }
-
-
-
 
     //add coupon
     public void addCoupon(Coupon coupon) throws CustomExceptions {
@@ -125,12 +112,11 @@ public class CompanyService extends ClientService{
 
     //get company details
     public Company getCompanyDetails() throws CustomExceptions {
-        Company company = companyRepo.findById(companyId).get();
-        company.setCoupons(getAllCompanyCoupons());
-        if (company == null) {
+        Optional<Company> optionalCompany = companyRepo.findById(companyId);
+        if (optionalCompany.isEmpty()) {
             throw new CustomExceptions(OptionalExceptionMessages.COMPANY_NOT_FOUND);
         }
-        return company;
+        return optionalCompany.get();
     }
 
     //Start date validation
@@ -148,4 +134,15 @@ public class CompanyService extends ClientService{
             throw new CustomExceptions(OptionalExceptionMessages.END_DATE_EXCEPTION);
         }
     }
-}
+
+    public void updateCompany(Company company) throws CustomExceptions {
+        if (!companyRepo.existsById(company.getId())) {
+            throw new CustomExceptions(OptionalExceptionMessages.COMPANY_NOT_FOUND);
+        }
+        if (!Objects.equals(company.getName(), companyRepo.findById(company.getId()).get().getName())) {
+            throw new CustomExceptions(OptionalExceptionMessages.CANT_UPDATE_COMPANY_NAME);
+        }
+        companyRepo.save(company);
+    }
+
+    }
