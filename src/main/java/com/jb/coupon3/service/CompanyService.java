@@ -50,8 +50,8 @@ public class CompanyService extends ClientService{
             throw new CustomExceptions(OptionalExceptionMessages.LOGIN_EXCEPTION);
         }
         coupon.setCompanyId(companyId);
-//        validStartDate(coupon.getStartDate());
-//        validEndDate(coupon.getEndDate(), coupon);
+        validStartDate(coupon.getStartDate());
+        validEndDate(coupon.getEndDate(), coupon);
         if (couponRepo.existsByTitleAndCompanyId(coupon.getTitle(), coupon.getCompanyId())) {
             System.out.println("This coupon title already exist for this company.");
             throw new CustomExceptions(OptionalExceptionMessages.CANT_ADD_COUPON);

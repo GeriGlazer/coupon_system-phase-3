@@ -55,13 +55,13 @@ public class CompanyController {
      * this can happen if the requesting company did not enter the system through the login process
      * 2: if already exist a similar coupon in the company's database
      */
-    @PutMapping("/addCoupon")
+    @PostMapping("/addCoupon")
     public ResponseEntity<?> addCoupon(@RequestBody Coupon coupon,@RequestHeader(name = "Authorization") String token) throws CustomExceptions {
         String newToken = jwTutil.checkUser(token, ClientType.COMPANY);
         companyService.addCoupon(coupon);
         return ResponseEntity.ok()
                 .header("Authorization", newToken)
-                .body("coupon " + coupon.getTitle() + " added");
+                .body(coupon);
     }
 
 
