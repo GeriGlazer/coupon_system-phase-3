@@ -67,7 +67,7 @@ public class CustomerController {
         customerService.updateCustomer(customer);
         return ResponseEntity.ok()
                 .header("Authorization", newToken)
-                .body("customer " + customer.getFirstName() + " updated");
+                .body(customer);
     }
 
     /**

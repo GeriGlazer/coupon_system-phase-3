@@ -30,12 +30,11 @@ public class GuestController {
      * @return new token for more admin actions and request status response
      * @throws CustomExceptions in case the server found a company with similar data
      */
-    //todo: check if @CrossOrigin is necessary in every controller
     @PostMapping("/addCompany")
     public ResponseEntity<?> addCompany (@RequestBody Company company) throws CustomExceptions {
         guestService.addCompany (company);
         return ResponseEntity.ok()
-                .body("company " + company.getName() + " added");
+                .body(company);
     }
 
     /**
@@ -46,10 +45,9 @@ public class GuestController {
      */
     @PostMapping("/addCustomer")
     public ResponseEntity<?> addCustomer (@RequestBody Customer customer) throws CustomExceptions {
-
        guestService.addCustomer(customer);
         return ResponseEntity.ok()
-                .body("customer " + customer.getFirstName() + " " + customer.getLastName() + " added");
+                .body(customer);
     }
 
 

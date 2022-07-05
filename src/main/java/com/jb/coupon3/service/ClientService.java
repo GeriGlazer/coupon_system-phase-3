@@ -14,5 +14,5 @@ public abstract class ClientService {
     @Autowired
     protected CustomerRepo customerRepo;
 
-    public abstract boolean login(String mail, String password)throws CustomExceptions;
+    public abstract boolean login(String email, String password)throws CustomExceptions;
 }

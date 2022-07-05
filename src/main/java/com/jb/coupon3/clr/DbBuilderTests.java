@@ -55,7 +55,7 @@ public class DbBuilderTests implements CommandLineRunner {
                 .email("sano@sushi.com")
                 .password("sanosushi")
                 .build();
-        companyRepo.saveAll(List.of(comp1, comp2, comp3));
+        //companyRepo.saveAll(List.of(comp1, comp2, comp3));
 
         Coupon coup1 = Coupon.builder()
                 .amount(200)
@@ -117,7 +117,7 @@ public class DbBuilderTests implements CommandLineRunner {
                 .endDate(Date.valueOf(LocalDate.now().plusDays(30L)))
                 .title("Snowboarding goggles")
                 .build();
-        couponRepo.saveAll(List.of(coup1, coup2, coup3, coup4, coup5, coup6));
+        //couponRepo.saveAll(List.of(coup1, coup2, coup3, coup4, coup5, coup6));
 
         Customer cmr1 = Customer.builder()
                 .firstName("zeev")
@@ -131,7 +131,7 @@ public class DbBuilderTests implements CommandLineRunner {
                 .email("gerig@gmail.com")
                 .password("654321")
                 .build();
-        customerRepo.saveAll(List.of(cmr1, cmr2));
+        //customerRepo.saveAll(List.of(cmr1, cmr2));
         couponExpirationDailyJob.deleteByDate();
     }
 }

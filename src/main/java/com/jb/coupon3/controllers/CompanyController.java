@@ -42,7 +42,7 @@ public class CompanyController {
         companyService.updateCompany(company);
         return ResponseEntity.ok()
                 .header("Authorization", newToken)
-                .body("company " + company.getName() + " updated");
+                .body(company);
     }
 
     /**
@@ -81,7 +81,7 @@ public class CompanyController {
         companyService.updateCoupon(coupon);
         return ResponseEntity.ok()
                 .header("Authorization", newToken)
-                .body("coupon " + coupon.getTitle() + " updated");
+                .body(coupon);
     }
 
     /**

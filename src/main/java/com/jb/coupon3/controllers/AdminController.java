@@ -41,7 +41,7 @@ public class AdminController {
         adminService.updateCompany(company);
         return ResponseEntity.ok()
         .header("Authorization", newToken)
-                .body("company " + company.getName() + " updated");
+                .body(company);
     }
 
 
@@ -110,7 +110,7 @@ public class AdminController {
         adminService.updateCustomer(customer);
         return ResponseEntity.ok()
                 .header("Authorization", newToken)
-                .body("customer " + customer.getFirstName() + " " + customer.getLastName() + " updated");
+                .body(customer);
     }
 
     /**

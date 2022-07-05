@@ -98,7 +98,7 @@ public class JWTutil {
             return extractAllClaims(token.replace("Bearer ","")).getSubject();
         }
 
-        private ClientType extractClientType(String token) {
+        public ClientType extractClientType(String token) {
             return ClientType.valueOf(extractSubject(token));
         }
 

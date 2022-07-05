@@ -14,6 +14,7 @@ public class LoginService {
     private final AdminService adminService;
     private final CompanyService companyService;
     private final CustomerService customerService;
+    private final GuestService guestService;
     private final JWTutil jwTutil;
 
     public String login (String email, String password, ClientType clientType) throws CustomExceptions {
