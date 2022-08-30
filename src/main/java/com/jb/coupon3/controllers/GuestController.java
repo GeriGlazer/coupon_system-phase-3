@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/GYGNcoupons/guest")
 public class GuestController {
     private final GuestService guestService;
