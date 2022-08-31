@@ -29,9 +29,12 @@ public class GuestService {
     }
 
    public List<Coupon> getAllCoupons() throws CustomExceptions {
+        //List<coupons> list = findAll()
+       //if(list.isEmptyu)
         if(couponRepo.findAll().isEmpty()){
             throw new CustomExceptions(OptionalExceptionMessages.EMPTY_LIST);
         }
+        //return list
         return couponRepo.findAll();
     }
 
