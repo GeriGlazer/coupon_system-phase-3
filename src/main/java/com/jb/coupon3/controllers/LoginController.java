@@ -32,7 +32,7 @@ public class LoginController {
      * see {@link com.jb.coupon3.security.JWTutil} for further explanation
      * @throws CustomExceptions in case there is an error produced by wrong data entered by the client
      */
-    @PostMapping("login")
+    @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserDetails userDetails) throws CustomExceptions {
         String token = loginService.login(userDetails.getEmail(), userDetails.getPass(), userDetails.getClientType());
         return ResponseEntity.ok()
