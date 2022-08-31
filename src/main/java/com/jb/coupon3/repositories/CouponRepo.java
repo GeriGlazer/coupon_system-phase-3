@@ -14,7 +14,7 @@ public interface CouponRepo extends JpaRepository<Coupon, Integer> {
 
     @Transactional
     @Modifying(clearAutomatically = true)
-    @Query(value = "DELETE FROM coupons WHERE (end_Date) < curDate()", nativeQuery = true)
+    @Query(value = "DELETE FROM coupons WHERE (end_Date) < curdate()", nativeQuery = true)
     void deleteCouponsByDate();
 
 
